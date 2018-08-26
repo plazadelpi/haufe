@@ -1,0 +1,40 @@
+---
+# install docker, copy docker files, build the image and run the container
+
+- name: Configure and update yum packages
+  yum:
+    name: '*'
+    state: latest
+    update_cache: yes
+
+- name: Install docker
+  yum:
+    name='docker'
+    state=latest
+
+- name: Start docker
+  service:
+    name=docker
+    state=started
+    enabled=yes
+
+- name: Copy haufe docker project
+  copy: src=docker dest=/tmp mode=0777
+
+- name: Install docker-py
+  pip:
+    name: docker-py
+
+- name: Build haufe docker image
+  docker_image:
+     path: /tmp/docker
+     name: haufe/nginx
+
+- name: Start haufe docker container
+  docker_container:
+    name: haufe
+    image: haufe/nginx
+    detach: yes
+    ports:
+      - "80:80"
+      - "443:443"
