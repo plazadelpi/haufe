@@ -5,8 +5,8 @@ This project is a test submitted by Haufe/Umantis and it makes use of Ansible to
 - build an ec2 instance
 - install docker
 - build a docker image based on centos
-  - use dockerfile to configure nginx to listen on ports 80/443, with 80->443 redirect and basic authentication
-- run the docker container
+  - use dockerfile to install and configure nginx to listen on ports 80/443, with 80->443 redirect, basic authentication and self-signed certificate
+- run the docker container with network binding 80/80 and 443/443
 
 ## Prerequisites
 
